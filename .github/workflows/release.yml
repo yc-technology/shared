@@ -1,4 +1,4 @@
-name: Release Workflow
+name: Release
 
 on:
   push:
@@ -6,60 +6,38 @@ on:
       - 'v*'
 
 jobs:
-  npm_pub:
-    if: github.actor != 'dependabot[bot]'
-    # 指定的运行器环境
+  release:
+    permissions:
+      id-token: write
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
         with:
-          version: 8.12.0
-          run_install: |
-            - recursive: false
-      # 执行构建步骤
-      - name: 构建
-        run: pnpm build
-      # 发布
-      - uses: JS-DevTools/npm-publish@v1
-        with:
-          token: ${{ secrets.NPM_TOKEN }}
-  build-and-release:
-    if: github.actor != 'dependabot[bot]'
-    # 指定的运行器环境
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8.12.0
-          run_install: |
-            - recursive: false
-      # 执行构建步骤
-      - name: 构建
-        run: pnpm build
-      # 创建 Release
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
-          prerelease: false
-          # release 发布后的描述
-          body: |
-            Please refer to [CHANGELOG.md](https://github.com/sixdjango/ts-lib-rollup-starter/blob/master/CHANGELOG.md) for details.
+          fetch-depth: 0
 
-      # 上传构建的产物到 Release
-      - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+
+      - name: Set node
+        uses: actions/setup-node@v3
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./zipDist/bundle.zip
-          asset_name: asset.zip
-          asset_content_type: application/zip
+          node-version: lts/*
+          cache: pnpm
+          registry-url: 'https://registry.npmjs.org'
+
+      - run: npx changelogithub
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+      - name: Install Dependencies
+        run: pnpm i
+
+      - name: PNPM build
+        run: pnpm run build
+
+      - name: Publish to NPM
+        run: pnpm -r publish --access public --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          NPM_CONFIG_PROVENANCE: true
