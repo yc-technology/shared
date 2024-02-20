@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "module": "esnext",
+    "target": "esnext",
+    "lib": ["ESNext", "DOM", "webworker"],
+    "moduleResolution": "node",
+    "strict": true,
+    "pretty": true,
+    "allowJs": true,
+    "listFiles": false,
+    "declaration": false,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "traceResolution": false,
+    "inlineSourceMap": false,
+    "resolveJsonModule": true,
+    "listEmittedFiles": false,
+    "noFallthroughCasesInSwitch": true,
+    "allowSyntheticDefaultImports": true,
+    "paths": {
+      "~/*": ["./src/*"]
+    },
+    "types": ["vitest"]
+  },
+  "compileOnSave": false,
+  "include": ["./src"]
+}

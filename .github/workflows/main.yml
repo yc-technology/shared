@@ -1,0 +1,52 @@
+name: CI
+
+# 触发工作流程的事件
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+# 按顺序运行作业
+jobs:
+  codecov:
+    if: github.actor != 'dependabot[bot]'
+    # 指定的运行器环境
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8.12.0
+          run_install: |
+            - recursive: false
+      # 生成测试覆盖率
+      - name: Run Test Coverage
+        run: npx vitest --coverage
+      # 生成pr报告
+      - name: Report Coverage
+        if: always() # Also generate the report if tests are failing
+        uses: davelosert/vitest-coverage-report-action@v1
+        with:
+          vite-config-path: ./vitest.config.ts
+      # 上传到codecov
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          directory: coverage
+          token: ${{ secrets.CODECOV_TOKEN }}
+  # dependabot:
+  #   if: github.actor == 'dependabot[bot]'
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - uses: pnpm/action-setup@v2
+  #       with:
+  #         version: 8.12.0
+  #         run_install: |
+  #           - recursive: false
+  #             args: [--no-frozen-lockfile]
+  #     - name: Run Test
+  #       run: pnpm test:unit
+  #     - name: Run Type Check
+  #       run: pnpm typecheck

@@ -1,0 +1,108 @@
+{
+  "name": "@you-gen/shared",
+  "version": "0.1.0",
+  "description": "通用工具类",
+  "type": "module",
+  "license": "MIT",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "types/index.d.ts",
+  "jsdelivr": "dist/iife/index.js",
+  "unpkg": "dist/iife/index.js",
+  "miniprogram": "dist/cjs",
+  "files": [
+    "dist",
+    "types"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "author": "django",
+  "homepage": "https://github.com/sixdjango",
+  "repository": "https://github.com/sixdjango/you-gen-shared",
+  "bugs": {
+    "url": "https://github.com/sixdjango/you-gen-shared/issues"
+  },
+  "keywords": [
+    "rollup",
+    "bundle",
+    "vitest",
+    "vitepress",
+    "typescript"
+  ],
+  "scripts": {
+    "build": "npm run build:types && npm run build:libs && npm run build:vp",
+    "build:types": "rimraf ./types && tsc --declaration --emitDeclarationOnly --outDir types -p tsconfig.lib.json",
+    "build:libs": "rimraf ./dist && rimraf ./zipDist && rollup --config rollup.config.ts --bundleConfigAsCjs --configPlugin @rollup/plugin-typescript",
+    "build:docs": "typedoc",
+    "build:vp": "typedoc && vitepress build .",
+    "test:unit": "vitest",
+    "test:cov": "vitest run --coverage",
+    "preview:docs": "vitepress dev .",
+    "format": "prettier --write .",
+    "typecheck": "tsc --noEmit --skipLibCheck",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
+    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^18.4.4",
+    "@commitlint/config-conventional": "^18.4.4",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/archiver": "^6.0.2",
+    "@types/crypto-js": "^4.2.2",
+    "@types/node": "^20.10.6",
+    "@types/uuid": "^9.0.8",
+    "@typescript-eslint/eslint-plugin": "^6.17.0",
+    "@typescript-eslint/parser": "^6.17.0",
+    "@vitest/coverage-v8": "^1.1.2",
+    "archiver": "^6.0.1",
+    "bumpp": "^9.2.1",
+    "conventional-changelog": "^5.1.0",
+    "conventional-changelog-cli": "^4.1.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.2",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.1.1",
+    "rimraf": "^5.0.5",
+    "rollup": "^4.9.2",
+    "simple-git-hooks": "^2.9.0",
+    "tslib": "^2.6.2",
+    "typedoc": "^0.25.6",
+    "typedoc-plugin-markdown": "^3.17.1",
+    "typescript": "^5.3.3",
+    "vitepress": "1.0.0-rc.36",
+    "vitest": "^1.1.2",
+    "vue": "^3.4.5"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "ignoreMissing": [
+        "@algolia/client-search"
+      ]
+    }
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged && npm run typecheck",
+    "commit-msg": "npx --no -- commitlint --edit ${1}"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "prettier --write"
+    ]
+  },
+  "dependencies": {
+    "bignumber.js": "^9.1.2",
+    "clsx": "^2.1.0",
+    "crypto-js": "^4.2.0",
+    "tailwind-merge": "^2.2.1",
+    "uuid": "^9.0.1",
+    "zod": "^3.22.4"
+  }
+}
