@@ -22,6 +22,7 @@
     "./package.json": "./package.json"
   },
   "author": "django",
+  "packageManager": "pnpm@8.15.0",
   "homepage": "https://github.com/sixdjango",
   "repository": "https://github.com/sixdjango/you-gen-shared",
   "bugs": {
