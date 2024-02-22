@@ -8,7 +8,7 @@ import json from '@rollup/plugin-json'
 export default defineConfig({
   input: 'src/index.ts',
   plugins: [json(), typescript(), terser(), zipPlugin({ outputDir: 'zipDist' })],
-  external: ['clsx', 'uuid', 'bignumber.js', 'crypto-js', 'tailwind-merge'],
+  external: ['clsx', 'uuid', 'bignumber.js', 'crypto-js', 'tailwind-merge', 'zod'],
   output: [
     {
       format: 'cjs',
