@@ -7,8 +7,10 @@
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "types/index.d.ts",
-  "jsdelivr": "dist/iife/index.js",
-  "unpkg": "dist/iife/index.js",
+  "iife": "dist/iife/index.js",
+  "jsdelivr": "dist/umd/index.js",
+  "umd": "dist/umd/index.js",
+  "unpkg": "dist/umd/index.js",
   "miniprogram": "dist/cjs",
   "files": [
     "dist",
@@ -37,6 +39,7 @@
   ],
   "scripts": {
     "release": "bumpp --commit --push --tag && npm publish",
+    "github:ci": "npm version patch -m 'chore(release): bump version to %s' && git push && git push --tags",
     "build": "npm run build:types && npm run build:libs && npm run build:vp",
     "build:types": "rimraf ./types && tsc --declaration --emitDeclarationOnly --outDir types -p tsconfig.lib.json",
     "build:libs": "rimraf ./dist && rimraf ./zipDist && rollup --config rollup.config.ts --bundleConfigAsCjs --configPlugin @rollup/plugin-typescript",
@@ -53,7 +56,9 @@
   "devDependencies": {
     "@commitlint/cli": "^18.6.1",
     "@commitlint/config-conventional": "^18.6.3",
+    "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
     "@types/archiver": "^6.0.2",
