@@ -25,7 +25,7 @@
     "./package.json": "./package.json"
   },
   "author": "django",
-  "packageManager": "pnpm@8.15.0",
+  "packageManager": "pnpm@9.0.1",
   "homepage": "https://github.com/sixdjango",
   "repository": "https://github.com/yc-technology/shared",
   "bugs": {
