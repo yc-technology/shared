@@ -57,4 +57,7 @@ function getConfig(input: string, file: string): RollupOptions {
   }
 }
 
-export default defineConfig([getConfig('src/index.ts', 'index')])
+export default defineConfig([
+  getConfig('src/index.ts', 'index'),
+  getConfig('src/moment.ts', 'moment')
+])
