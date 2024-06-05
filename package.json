@@ -22,10 +22,15 @@
       "require": "./dist/cjs/index.js",
       "types": "./types/index.d.ts"
     },
+    "./moment": {
+      "import": "./dist/esm/moment.js",
+      "require": "./dist/cjs/moment.js",
+      "types": "./types/moment.d.ts"
+    },
     "./package.json": "./package.json"
   },
   "author": "django",
-  "packageManager": "pnpm@9.0.1",
+  "packageManager": "pnpm@9.0.6",
   "homepage": "https://github.com/sixdjango",
   "repository": "https://github.com/yc-technology/shared",
   "bugs": {
@@ -106,6 +111,8 @@
     "bignumber.js": "^9.1.2",
     "clsx": "^2.1.0",
     "crypto-js": "^4.2.0",
+    "moment": "^2.30.1",
+    "moment-timezone": "^0.5.45",
     "tailwind-merge": "^2.2.2",
     "uuid": "^9.0.1",
     "zod": "^3.22.4"
