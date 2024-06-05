@@ -2,7 +2,7 @@ export interface Fn<T = any, R = T> {
   (...arg: T[]): R
 }
 
-export default class EventBus {
+export class EventBus {
   private cache: Map<string | symbol, Array<(...data: any) => void>>
 
   constructor(all = []) {
