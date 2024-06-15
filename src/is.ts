@@ -3,6 +3,10 @@ export function isFileImage(file: File) {
   return file && file.type.split('/')[0] === 'image'
 }
 
+export function isFileVideo(file: File) {
+  return file && file.type.split('/')[0] === 'video'
+}
+
 export function isFileImageByName(fileName: string) {
   return fileName.endsWith('.png') || fileName.endsWith('.jpg') || fileName.endsWith('.jpeg')
 }
