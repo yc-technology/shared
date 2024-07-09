@@ -1,6 +1,4 @@
-export interface Fn<T = any, R = T> {
-  (...arg: T[]): R
-}
+import { Fn } from './type'
 
 export class EventBus {
   private cache: Map<string | symbol, Array<(...data: any) => void>>
@@ -40,3 +38,6 @@ export class EventBus {
     this.cache.clear()
   }
 }
+
+// 全局事件总线单例
+export const globalEventBus = new EventBus()

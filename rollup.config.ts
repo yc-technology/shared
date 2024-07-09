@@ -15,7 +15,7 @@ function getConfig(input: string, file: string): RollupOptions {
       resolve(), // 解析node_modules中的模块
       commonjs()
     ],
-    external: ['clsx', 'bignumber.js', 'crypto-js', 'zod', 'moment', 'moment-timezone'],
+    external: ['clsx', 'bignumber.js', 'crypto-js', 'zod', 'react'],
     output: [
       {
         format: 'cjs',
@@ -38,7 +38,7 @@ function getConfig(input: string, file: string): RollupOptions {
           'crypto-js': 'CryptoJS',
           clsx: 'clsx',
           zod: 'Zod',
-          moment: 'moment'
+          react: 'react'
         }
       },
       {
@@ -50,7 +50,7 @@ function getConfig(input: string, file: string): RollupOptions {
           'crypto-js': 'CryptoJS',
           clsx: 'clsx',
           zod: 'Zod',
-          moment: 'moment'
+          react: 'react'
         }
       }
     ]
@@ -59,5 +59,5 @@ function getConfig(input: string, file: string): RollupOptions {
 
 export default defineConfig([
   getConfig('src/index.ts', 'index'),
-  getConfig('src/moment.ts', 'moment')
+  getConfig('src/hooks/react/index.ts', 'react-hooks')
 ])
