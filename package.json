@@ -1,6 +1,6 @@
 {
   "name": "@yc-tech/shared",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "通用工具类",
   "type": "module",
   "license": "MIT",
