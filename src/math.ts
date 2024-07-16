@@ -4,31 +4,32 @@ export function bignumber(v?: number | string | null | BigNumber) {
   return BigNumber(v || 0)
 }
 
-export function plus(a?: number | string | BigNumber, b?: number | string | BigNumber) {
-  const _a = new BigNumber(a || 0)
-  const _b = new BigNumber(b || 0)
-  return _a.plus(_b)
+export function plus(...args: Array<number | string | BigNumber | undefined | null>) {
+  return args.reduce(
+    (sum, current) => (sum as BigNumber).plus(new BigNumber(current || 0)),
+    new BigNumber(0)
+  ) as BigNumber
 }
 
-export function minus(
-  a?: number | string | BigNumber | null,
-  b?: number | string | BigNumber | null
-) {
-  const _a = new BigNumber(a || 0)
-  const _b = new BigNumber(b || 0)
-  return _a.minus(_b)
+export function minus(...args: Array<number | string | BigNumber | undefined | null>) {
+  return args.reduce(
+    (sum, current) => (sum as BigNumber).minus(new BigNumber(current || 0)),
+    new BigNumber(0)
+  ) as BigNumber
 }
 
-export function division(a?: number | string | BigNumber, b?: number | string | BigNumber) {
-  const _a = new BigNumber(a || 0)
-  const _b = new BigNumber(b || 0)
-  return _a.div(_b)
+export function division(...args: Array<number | string | BigNumber | undefined | null>) {
+  return args.reduce(
+    (sum, current) => (sum as BigNumber).div(new BigNumber(current || 0)),
+    new BigNumber(0)
+  ) as BigNumber
 }
 
-export function multiplied(a?: number | string | BigNumber, b?: number | string | BigNumber) {
-  const _a = new BigNumber(a || 0)
-  const _b = new BigNumber(b || 0)
-  return _a.multipliedBy(_b)
+export function multiplied(...args: Array<number | string | BigNumber | undefined | null>) {
+  return args.reduce(
+    (sum, current) => (sum as BigNumber).times(new BigNumber(current || 0)),
+    new BigNumber(0)
+  ) as BigNumber
 }
 
 export function fixed(a: number | string, decimalPlaces = 0) {
