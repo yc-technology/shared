@@ -31,6 +31,44 @@ export function isHeic(file: File) {
   return file && (file.type === 'image/heic' || file.type === 'image/heif')
 }
 
+export function isDoc(file: File) {
+  return (
+    file &&
+    (file.type === 'application/msword' ||
+      file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
+      file.type === 'application/vnd.oasis.opendocument.text' ||
+      file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.template' ||
+      file.type === 'application/vnd.ms-word.document.macroEnabled.12' ||
+      file.type === 'application/vnd.ms-word.template.macroEnabled.12')
+  )
+}
+
+export function isExcel(file: File) {
+  return (
+    file &&
+    (file.type === 'application/vnd.ms-excel' ||
+      file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' ||
+      file.type === 'application/vnd.oasis.opendocument.spreadsheet' ||
+      file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.template' ||
+      file.type === 'application/vnd.ms-excel.sheet.macroEnabled.12' ||
+      file.type === 'application/vnd.ms-excel.template.macroEnabled.12' ||
+      file.type === 'application/vnd.ms-excel.addin.macroEnabled.12' ||
+      file.type === 'application/vnd.ms-excel.sheet.binary.macroEnabled.12')
+  )
+}
+
+export function isZip(file: File) {
+  return (
+    file &&
+    (file.type === 'application/zip' ||
+      file.type === 'application/x-zip-compressed' ||
+      file.type === 'application/x-7z-compressed' ||
+      file.type === 'application/x-rar-compressed' ||
+      file.type === 'application/x-tar' ||
+      file.type === 'application/x-gzip')
+  )
+}
+
 export const isClient = typeof window !== 'undefined' && typeof document !== 'undefined'
 
 export const isWorker =
