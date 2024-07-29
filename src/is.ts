@@ -53,8 +53,15 @@ export function isExcel(file: File) {
       file.type === 'application/vnd.ms-excel.sheet.macroEnabled.12' ||
       file.type === 'application/vnd.ms-excel.template.macroEnabled.12' ||
       file.type === 'application/vnd.ms-excel.addin.macroEnabled.12' ||
-      file.type === 'application/vnd.ms-excel.sheet.binary.macroEnabled.12')
+      file.type === 'application/vnd.ms-excel.sheet.binary.macroEnabled.12' ||
+      // csv
+      file.type === 'text/csv' ||
+      file.type === 'application/csv')
   )
+}
+
+export function isCsv(file: File) {
+  return file && (file.type === 'text/csv' || file.type === 'application/csv')
 }
 
 export function isZip(file: File) {
