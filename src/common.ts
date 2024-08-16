@@ -14,7 +14,7 @@ export function sleep(ms: number) {
 export function findDeep<T extends Record<string, any>>(
   arr: T[],
   predicate: (item: T) => boolean,
-  childrenKey?: string,
+  childrenKey?: string
 ): T | undefined {
   for (const item of arr) {
     if (predicate(item)) {
@@ -42,4 +42,22 @@ export function findDeep<T extends Record<string, any>>(
 
 export function assign<T extends object, U>(target: T, source: U): T & U {
   return Object.assign(target, source)
+}
+
+export function deepReduce<T extends Record<string, any>, U>(
+  arr: T[],
+  reducer: (acc: U, item: T) => U,
+  initialValue: U,
+  childrenKey?: string
+): U {
+  return arr.reduce((acc, item) => {
+    const children = childrenKey ? item[childrenKey] : item
+    const result = reducer(acc, item)
+
+    if (Array.isArray(children)) {
+      return deepReduce(children, reducer, result, childrenKey)
+    }
+
+    return result
+  }, initialValue)
 }

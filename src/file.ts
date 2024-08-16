@@ -10,7 +10,7 @@ export enum ByteSymbolName {
   PB = 'PB',
   EB = 'EB',
   ZB = 'ZB',
-  YB = 'YB',
+  YB = 'YB'
 }
 
 export interface LocalFileInfo {
@@ -60,12 +60,12 @@ export async function downloadByUrl(url: string, fetchApi: (url: string) => Prom
 
 export async function compressImage(
   file: File,
-  options?: { download?: boolean; maxSize?: number; quality?: number },
+  options?: { download?: boolean; maxSize?: number; quality?: number }
 ): Promise<File>
 export async function compressImage(
   file: File,
   options?: { download?: boolean; maxSize?: number; quality?: number },
-  base64?: boolean,
+  base64?: boolean
 ): Promise<string>
 /**
  * 压缩图片
@@ -74,7 +74,7 @@ export async function compressImage(
 export async function compressImage(
   file: File,
   options: { download?: boolean; maxSize?: number; quality?: number } = {},
-  base64?: boolean,
+  base64?: boolean
 ): Promise<File | string> {
   const reader = new FileReader()
   const img = new Image()
@@ -141,7 +141,7 @@ export async function compressImage(
           }
         },
         file.type || 'image/png',
-        options.quality || 0.8,
+        options.quality || 0.8
       )
     }
 
@@ -223,7 +223,7 @@ export async function calculateFile(file: any, sha256 = true) {
  * @param data
  * @returns
  */
-export async function getImgInfo(data: string | File) {
+export async function getImgInfo(data: string | File | Blob) {
   const image = new Image()
   const url = typeof data === 'string' ? data : URL.createObjectURL(data)
   image.src = url
@@ -235,7 +235,8 @@ export async function getImgInfo(data: string | File) {
     error?: any
   }>((resolve) => {
     image.onload = () => {
-      if (image.width > 0 || image.height > 0) resolve({ width: image.width, height: image.height, url, image })
+      if (image.width > 0 || image.height > 0)
+        resolve({ width: image.width, height: image.height, url, image })
 
       resolve({ width: image.width, height: image.height, url, image })
     }
@@ -316,7 +317,7 @@ export function dataURLtoBlob(dataUrl: string) {
 // 将blob转换为file
 export function blobToFile(theBlob: Blob, fileName: string, mimeType?: string) {
   const file = new File([theBlob], fileName, {
-    type: mimeType,
+    type: mimeType
   })
 
   return file
@@ -354,7 +355,7 @@ export function scanFiles(entry: any, filesList: any[]) {
         },
         (e: any) => {
           reject(e)
-        },
+        }
       )
       // 等待本次循环文件夹扫描完毕
       deferred.promise.then(() => {
@@ -369,14 +370,14 @@ export function scanFiles(entry: any, filesList: any[]) {
           const path = entry.fullPath.substring(1)
           /** 修改webkitRelativePath 是核心操作，原因是拖拽会的事件体中webkitRelativePath是空的，而且webkitRelativePath 是只读属性，普通赋值是不行的。所以目前只能使用这种方法将entry.fullPath 赋值给webkitRelativePath */
           const newFile = Object.defineProperty(file, 'webkitRelativePath', {
-            value: path,
+            value: path
           })
           filesList.push(newFile)
           resolve(true)
         },
         (e: any) => {
           reject(e)
-        },
+        }
       )
     }
   })
@@ -392,7 +393,7 @@ export function scanFiles(entry: any, filesList: any[]) {
 export function fitShapeWidthHeight(
   originWidth: number,
   originHeight: number,
-  options: { maxHeight: number; maxWidth: number },
+  options: { maxHeight: number; maxWidth: number }
 ) {
   const { maxHeight, maxWidth } = options
 
@@ -422,10 +423,11 @@ export async function compressImageTo2M(
   file: File,
   options: { download?: boolean; maxSize?: number; quality?: number } = {
     maxSize: 1400,
-    quality: 0.8,
-  },
+    quality: 0.8
+  }
 ) {
   const res = await compressImage(file, options)
-  if (res.size > 1024 * 1024 * 4) return compressImageTo2M(res, { ...options, maxSize: options.maxSize! * 0.8 })
+  if (res.size > 1024 * 1024 * 4)
+    return compressImageTo2M(res, { ...options, maxSize: options.maxSize! * 0.8 })
   else return res
 }
