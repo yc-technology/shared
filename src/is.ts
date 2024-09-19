@@ -1,3 +1,5 @@
+import { defaultWindow } from './configurable'
+
 export function isFileImage(file: File) {
   // 只接受一个参数，这个参数是一个File对象
   return file && file.type.split('/')[0] === 'image'
@@ -104,10 +106,11 @@ export const isIOS = /* #__PURE__ */ getIsIOS()
 function getIsIOS() {
   return (
     isClient &&
-    window?.navigator?.userAgent &&
-    (/iP(ad|hone|od)/.test(window.navigator.userAgent) ||
+    defaultWindow?.navigator?.userAgent &&
+    (/iP(ad|hone|od)/.test(defaultWindow.navigator.userAgent) ||
       // The new iPad Pro Gen3 does not identify itself as iPad, but as Macintosh.
       // https://github.com/vueuse/vueuse/issues/3577
-      (window?.navigator?.maxTouchPoints > 2 && /iPad|Macintosh/.test(window?.navigator.userAgent)))
+      (defaultWindow?.navigator?.maxTouchPoints > 2 &&
+        /iPad|Macintosh/.test(defaultWindow?.navigator.userAgent)))
   )
 }
