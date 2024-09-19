@@ -1,5 +1,3 @@
-import { isClient } from './is'
-
 export interface ConfigurableWindow {
   /*
    * Specify a custom `window` instance, e.g. working with iframes or in testing environments.
@@ -34,6 +32,8 @@ export interface ConfigurableLocation {
    */
   location?: Location
 }
+
+export const isClient = typeof window !== 'undefined' && typeof document !== 'undefined'
 
 export const defaultWindow = /* #__PURE__ */ isClient ? window : undefined
 export const defaultDocument = /* #__PURE__ */ isClient ? window.document : undefined

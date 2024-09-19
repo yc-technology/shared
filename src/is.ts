@@ -1,4 +1,4 @@
-import { defaultWindow } from './configurable'
+import { defaultWindow, isClient } from './configurable'
 
 export function isFileImage(file: File) {
   // 只接受一个参数，这个参数是一个File对象
@@ -77,8 +77,6 @@ export function isZip(file: File) {
       file.type === 'application/x-gzip')
   )
 }
-
-export const isClient = typeof window !== 'undefined' && typeof document !== 'undefined'
 
 export const isWorker =
   typeof WorkerGlobalScope !== 'undefined' && globalThis instanceof WorkerGlobalScope
