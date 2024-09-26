@@ -103,12 +103,12 @@ export const isIOS = /* #__PURE__ */ getIsIOS()
 
 function getIsIOS() {
   return (
-    isClient &&
-    defaultWindow?.navigator?.userAgent &&
-    (/iP(ad|hone|od)/.test(defaultWindow.navigator.userAgent) ||
+    isClient() &&
+    defaultWindow()?.navigator?.userAgent &&
+    (/iP(ad|hone|od)/.test(defaultWindow()!.navigator?.userAgent) ||
       // The new iPad Pro Gen3 does not identify itself as iPad, but as Macintosh.
       // https://github.com/vueuse/vueuse/issues/3577
-      (defaultWindow?.navigator?.maxTouchPoints > 2 &&
-        /iPad|Macintosh/.test(defaultWindow?.navigator.userAgent)))
+      (defaultWindow()!.navigator?.maxTouchPoints > 2 &&
+        /iPad|Macintosh/.test(defaultWindow()!.navigator?.userAgent)))
   )
 }

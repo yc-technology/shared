@@ -24,11 +24,11 @@ export interface LocalFileInfo {
 
 export function downloadByBlob(blob: Blob, filename: string) {
   // @ts-expect-error: ignore
-  if (typeof defaultWindow.navigator.msSaveBlob !== 'undefined') {
+  if (typeof defaultWindow().navigator.msSaveBlob !== 'undefined') {
     // @ts-expect-error: ignore
-    defaultWindow.navigator.msSaveBlob(blob, filename)
+    defaultWindow().navigator.msSaveBlob(blob, filename)
   } else {
-    const blobURL = defaultWindow!.URL.createObjectURL(blob)
+    const blobURL = defaultWindow()!.URL.createObjectURL(blob)
     const tempLink = document.createElement('a')
     tempLink.style.display = 'none'
     tempLink.href = blobURL
@@ -38,7 +38,7 @@ export function downloadByBlob(blob: Blob, filename: string) {
     document.body.appendChild(tempLink)
     tempLink.click()
     document.body.removeChild(tempLink)
-    defaultWindow!.URL.revokeObjectURL(blobURL)
+    defaultWindow()!.URL.revokeObjectURL(blobURL)
   }
 }
 

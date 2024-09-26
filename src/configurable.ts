@@ -33,9 +33,9 @@ export interface ConfigurableLocation {
   location?: Location
 }
 
-export const isClient = typeof window !== 'undefined' && typeof document !== 'undefined'
+export const isClient = () => typeof window !== 'undefined' && typeof document !== 'undefined'
 
-export const defaultWindow = /* #__PURE__ */ isClient ? window : undefined
-export const defaultDocument = /* #__PURE__ */ isClient ? window.document : undefined
-export const defaultNavigator = /* #__PURE__ */ isClient ? window.navigator : undefined
-export const defaultLocation = /* #__PURE__ */ isClient ? window.location : undefined
+export const defaultWindow = () => (isClient() ? window : undefined)
+export const defaultDocument = () => (isClient() ? window.document : undefined)
+export const defaultNavigator = () => (isClient() ? window.navigator : undefined)
+export const defaultLocation = () => (isClient() ? window.location : undefined)
