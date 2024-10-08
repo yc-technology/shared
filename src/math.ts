@@ -21,14 +21,14 @@ export function minus(...args: Array<number | string | BigNumber | undefined | n
 export function division(...args: Array<number | string | BigNumber | undefined | null>) {
   return args.reduce(
     (sum, current) => (sum as BigNumber).div(new BigNumber(current || 0)),
-    new BigNumber(0)
+    new BigNumber(1)
   ) as BigNumber
 }
 
 export function multiplied(...args: Array<number | string | BigNumber | undefined | null>) {
   return args.reduce(
     (sum, current) => (sum as BigNumber).times(new BigNumber(current || 0)),
-    new BigNumber(0)
+    new BigNumber(1)
   ) as BigNumber
 }
 
